@@ -11,6 +11,8 @@ end
 
 puts "-----> Found a .oracle.ini"
 
+RUBY=`which ruby`
+
 S3BUCKET="https://s3.amazonaws.com/chameleon-heroku-assets"
 OCI8_TGZ="#{S3BUCKET}/oci8.tar.gz"
 ORACLE_INSTANT_CLIENT_TGZ="#{S3BUCKET}/instantclient_11_2.tar.gz"
@@ -45,7 +47,7 @@ puts `ls -alh #{ORACLE_INSTANT_CLIENT_DIR}`
 ENV['LD_LIBRARY_PATH'] = "#{ORACLE_INSTANT_CLIENT_DIR}"
 
 indent "Compiling..."
-result = `cd #{OCI8_DIR} && /usr/bin/ruby setup.rb config --prefix=#{BUILD_DIR} && make && make install`
+result = `cd #{OCI8_DIR} && #{RUBY} setup.rb config --prefix=#{BUILD_DIR} && make && make install`
 
 unless $?.success?
   puts "Failed to compile."
