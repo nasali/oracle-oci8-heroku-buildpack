@@ -2,5 +2,5 @@
 
 puts <<-CONF
 config_vars:
-  LD_LIBRARY_PATH: "/app/vendor/oracle_instantclient/lib"
+  LD_LIBRARY_PATH: "/app/vendor/oracle_instantclient/"
 CONF
