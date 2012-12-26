@@ -3,6 +3,8 @@
 require 'tempfile'
 require 'fileutils'
 
+$stdout.sync = true
+
 def indent msg
   puts " #{msg}"
 end
@@ -43,7 +45,7 @@ puts `ls -alh #{ORACLE_INSTANT_CLIENT_DIR}`
 ENV['LD_LIBRARY_PATH'] = "#{ORACLE_INSTANT_CLIENT_DIR}"
 
 indent "Compiling..."
-result = `cd #{OCI8_DIR} && ruby setup.rb config --prefix=#{BUILD_DIR} && make && make install`
+result = `cd #{OCI8_DIR} && /usr/bin/ruby setup.rb config --prefix=#{BUILD_DIR} && make && make install`
 
 unless $?.success?
   puts "Failed to compile."
