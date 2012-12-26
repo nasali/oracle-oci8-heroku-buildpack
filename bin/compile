@@ -46,7 +46,7 @@ puts `ls -alh #{OCI8_DIR}`
 #indent "Setting Oracle environment variable... #{ORACLE_INSTANT_CLIENT_DIR}"
 ENV['LD_LIBRARY_PATH'] = "#{ORACLE_INSTANT_CLIENT_DIR}"
 
-indent "Compiling..."
+indent "Compiling... with #{RUBY}"
 result = `cd #{OCI8_DIR} && #{RUBY} setup.rb config --prefix=#{BUILD_DIR} && make && make install`
 
 unless $?.success?
