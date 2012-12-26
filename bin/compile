@@ -13,7 +13,7 @@ S3BUCKET="https://s3.amazonaws.com/chameleon-heroku-assets"
 OCI8_TGZ="#{S3BUCKET}/oci8.tar.gz"
 ORACLE_INSTANT_CLIENT_TGZ="#{S3BUCKET}/instantclient_11_2.tar.gz"
 
-BUILD_DIR="#{ARGV[0]/oracle_oci8"
+BUILD_DIR="#{ARGV[0]}/oracle_oci8"
 OCI8_DIR="#{ARGV[0]}/vendor/oci8"
 OCI8_SO_DIR="#{ARGV[0]}/vendor/ruby-1.9.3/lib/ruby/1.9.1" 
 
@@ -40,7 +40,7 @@ unless $?.success?
 end
 
 indent "Setting Oracle environment variable..."
-result = `export LD_LIBRARY_PATH=#{ORACLE_INSTANT_CLIENT_DIR}" `
+result = `export LD_LIBRARY_PATH=#{ORACLE_INSTANT_CLIENT_DIR} `
 
 indent "Compiling..."
 result = `cd #{OCI8_DIR} && ruby setup.rb config --prefix=#{BUILD_DIR} && make && make install`
