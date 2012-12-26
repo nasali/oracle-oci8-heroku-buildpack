@@ -47,7 +47,7 @@ puts `ls -alh #{OCI8_DIR}`
 ENV['LD_LIBRARY_PATH'] = "#{ORACLE_INSTANT_CLIENT_DIR}"
 
 indent "Compiling... with #{RUBY}"
-result = `cd #{OCI8_DIR} && #{RUBY} setup.rb config --prefix=#{BUILD_DIR} && make && make install`
+result = `cd #{OCI8_DIR} && #{RUBY} ./setup.rb config --prefix=#{BUILD_DIR} && make && make install`
 
 unless $?.success?
   puts "Failed to compile."
