@@ -14,45 +14,33 @@ puts "-----> Found a .oracle.ini"
 RUBY=`which ruby`
 
 S3BUCKET="https://s3.amazonaws.com/chameleon-heroku-assets"
-OCI8_TGZ="#{S3BUCKET}/ruby-oci8-2.1.3.tar.gz"
+OCI8_TGZ="#{S3BUCKET}/oci8.tar.gz"
 ORACLE_INSTANT_CLIENT_TGZ="#{S3BUCKET}/instantclient_11_2.tar.gz"
 
 BUILD_DIR="#{ARGV[0]}/oracle_oci8"
 OCI8_DIR="#{ARGV[0]}/vendor/oci8"
-OCI8_SO_DIR="#{ARGV[0]}/vendor/ruby-1.9.3/lib/ruby/1.9.1" 
+OCI8_SO_DIR="#{ARGV[0]}/vendor/ruby-1.9.3/" 
 
 ORACLE_INSTANT_CLIENT_DIR="#{ARGV[0]}/vendor/oracle_instantclient"
 
 indent "Making folders..."
-`mkdir -p #{BUILD_DIR}`
+`mkdir -p #{OCI8_SO_DIR}`
 `mkdir -p #{OCI8_DIR}`
 `mkdir -p #{ORACLE_INSTANT_CLIENT_DIR}`
 
 indent "Downloading and extracting archives from #{S3BUCKET}..."
-result = `curl #{OCI8_TGZ} -o - | tar -xz -C #{OCI8_DIR} -f - `
+result = `curl #{OCI8_TGZ} -o - | tar -xz -C #{OCI8_SO_DIR} -f - `
 
 unless $?.success?
-  puts "Failure while downloading OCI8 archive."
+  indent "Failure while downloading OCI8 archive."
   exit 1
 end
 
 result = `curl #{ORACLE_INSTANT_CLIENT_TGZ} -o - | tar -xz -C #{ORACLE_INSTANT_CLIENT_DIR} -f - `
 
 unless $?.success?
-  puts "Failure while downloading Oracle instant client archive."
+  indent "Failure while downloading Oracle instant client archive."
   exit 1
 end
-puts `ls -alh #{OCI8_DIR}`
-#indent "Setting Oracle environment variable... #{ORACLE_INSTANT_CLIENT_DIR}"
-ENV['LD_LIBRARY_PATH'] = "#{ORACLE_INSTANT_CLIENT_DIR}"
 
-indent "Compiling... with #{RUBY}"
-result = `cd #{OCI8_DIR} && #{RUBY} #{OCI8_DIR}/setup.rb config --prefix=#{BUILD_DIR} && make && make install`
-
-unless $?.success?
-  puts "Failed to compile."
-  exit 1
-else
-  puts "Compiled successfully!"
-  exit 0
-end
+indent "Done."
