@@ -38,7 +38,7 @@ unless $?.success?
   puts "Failure while downloading Oracle instant client archive."
   exit 1
 end
-`ls #{ORACLE_INSTANT_CLIENT_DIR}`
+puts `ls -alh #{ORACLE_INSTANT_CLIENT_DIR}`
 indent "Setting Oracle environment variable..."
 result = `export LD_LIBRARY_PATH=#{ORACLE_INSTANT_CLIENT_DIR} `
 
