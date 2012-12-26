@@ -6,7 +6,7 @@ require 'fileutils'
 $stdout.sync = true
 
 def indent msg
-  puts " #{msg}"
+  puts "       #{msg}"
 end
 
 puts "-----> Found a .oracle.ini"
