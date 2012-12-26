@@ -43,7 +43,7 @@ indent "Setting Oracle environment variable..."
 result = `export LD_LIBRARY_PATH=#{ORACLE_INSTANT_CLIENT_DIR}"
 
 indent "Compiling..."
-result = `cd #{OCI8-DIR} && ruby setup.rb config --prefix=#{BUILD_DIR} && make && make install`
+result = `cd #{OCI8_DIR} && ruby setup.rb config --prefix=#{BUILD_DIR} && make && make install`
 
 unless $?.success?
   puts "Failed to compile."
