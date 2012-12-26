@@ -42,7 +42,7 @@ unless $?.success?
   puts "Failure while downloading Oracle instant client archive."
   exit 1
 end
-puts `ls -alh #{ORACLE_INSTANT_CLIENT_DIR}`
+puts `ls -alh #{OCI8_DIR}`
 #indent "Setting Oracle environment variable... #{ORACLE_INSTANT_CLIENT_DIR}"
 ENV['LD_LIBRARY_PATH'] = "#{ORACLE_INSTANT_CLIENT_DIR}"
 
