@@ -19,7 +19,7 @@ ORACLE_INSTANT_CLIENT_TGZ="#{S3BUCKET}/instantclient_11_2.tar.gz"
 
 BUILD_DIR="#{ARGV[0]}/oracle_oci8"
 OCI8_DIR="#{ARGV[0]}/vendor/oci8"
-OCI8_SO_DIR="#{ARGV[0]}/vendor/ruby-1.9.3/" 
+OCI8_SO_DIR="#{ARGV[0]}/vendor/ruby-2.0.0/" 
 
 ORACLE_INSTANT_CLIENT_DIR="#{ARGV[0]}/vendor/oracle_instantclient"
 
