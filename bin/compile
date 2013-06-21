@@ -14,7 +14,7 @@ puts "-----> Found a .oracle.ini"
 RUBY=`which ruby`
 
 S3BUCKET="https://s3.amazonaws.com/chameleon-heroku-assets"
-OCI8_TGZ="#{S3BUCKET}/oci8.tar.gz"
+OCI8_TGZ="#{S3BUCKET}/oci8ruby2hack.tar.gz"
 ORACLE_INSTANT_CLIENT_TGZ="#{S3BUCKET}/instantclient_11_2.tar.gz"
 
 BUILD_DIR="#{ARGV[0]}/oracle_oci8"
