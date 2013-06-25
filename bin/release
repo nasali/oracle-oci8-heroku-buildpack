@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
+ENV['LD_LIBRARY_PATH'] = "/app/vendor/oracle_instantclient/"
+
 puts <<-CONF
 config_vars:
-  LD_LIBRARY_PATH: "/app/vendor/oracle_instantclient/"
+  LD_LIBRARY_PATH: /app/vendor/oracle_instantclient/
 CONF
