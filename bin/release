@@ -2,5 +2,6 @@
 
 puts <<-CONF
 config_vars:
-  LD_LIBRARY_PATH: vendor/oracle_instantclient/
+  LD_LIBRARY_PATH: vendor/oracle_instantclient
+  NLS_LANG: AMERICAN_AMERICA.UTF8
 CONF
