@@ -29,17 +29,17 @@ indent "Making folders..."
 `mkdir -p #{ORACLE_INSTANT_CLIENT_DIR}`
 
 indent "Downloading and extracting archives from #{S3BUCKET}..."
-result = `curl #{OCI8_TGZ} -o - | tar -xz -C #{OCI8_SO_DIR} -f - `
+result = `curl #{OCI8_TGZ} -s -o - | tar -xz -C #{OCI8_SO_DIR} -f - `
 
 unless $?.success?
-  indent "Failure while downloading OCI8 archive."
+  indent "Failure while downloading OCI8 archive: #{$?}"
   exit 1
 end
 
-result = `curl #{ORACLE_INSTANT_CLIENT_TGZ} -o - | tar -xz -C #{ORACLE_INSTANT_CLIENT_DIR} -f - `
+result = `curl #{ORACLE_INSTANT_CLIENT_TGZ} -s -o - | tar -xz -C #{ORACLE_INSTANT_CLIENT_DIR} -f - `
 
 unless $?.success?
-  indent "Failure while downloading Oracle instant client archive."
+  indent "Failure while downloading Oracle instant client archive: #{$?}"
   exit 1
 end
 
