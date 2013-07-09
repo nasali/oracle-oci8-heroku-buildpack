@@ -1,7 +1,14 @@
 #!/usr/bin/env ruby
 
+EXISTING_LD_LIBRARY_PATH = ENV['LD_LIBRARY_PATH']
+new_ld_library_path = "vendor/oracle_instantclient"
+
+if ! EXISTING_LD_LIBRARY_PATH.nil? && ! EXISTING_LD_LIBRARY_PATH.empty?
+  new_ld_library_path = EXISTING_LD_LIBRARY_PATH + ":" + new_ld_library_path
+end
+
 puts <<-CONF
 config_vars:
-  LD_LIBRARY_PATH: "#{ENV['LD_LIBRARY_PATH']}:vendor/oracle_instantclient"
+  LD_LIBRARY_PATH: #{new_ld_library_path}
   NLS_LANG: AMERICAN_AMERICA.UTF8
 CONF
