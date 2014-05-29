@@ -11,23 +11,23 @@ end
 
 puts "-----> Found a .oracle.ini"
 
-RUBY_SOURCE_URL = "http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.2.tar.gz"
+OCI8_SOURCE_URL = "http://dl.bintray.com/kubo/generic/ruby-oci8-2.1.7.tar.gz"
 
-RUBY_BUILD_DIR="#{ARGV[0]}/vendor/ruby212build/ruby-2.1.2"
-RUBY_DIR="#{ARGV[0]}/vendor/ruby212/"
+OCI8_BUILD_DIR="#{ARGV[0]}/vendor/oci8"
+OCI8_DIR="#{ARGV[0]}/vendor/oci8/"
 
-`mkdir -p #{RUBY_DIR} && mkdir -p #{RUBY_BUILD_DIR}`
+`mkdir -p #{OCI8_BUILD_DIR} && mkdir -p #{OCI8_DIR}`
 
-indent "Downloading Ruby 2.1.2 source"
-result = `curl #{RUBY_SOURCE_URL} -s -o - | tar -xz -C #{RUBY_BUILD_DIR} -f - `
-indent `ls -alh #{RUBY_BUILD_DIR}`
-indent "Configuring Ruby 2.1.2"
-result = `cd #{RUBY_BUILD_DIR} && ./configure --prefix=#{RUBY_DIR} 2>&1`
+indent "Downloading Ruby OCI8 source"
+result = `curl #{OCI8_SOURCE_URL} -s -o - | tar -xz -C #{OCI8_BUILD_DIR} -f - `
+indent `ruby --version`
+indent "Configuring Ruby OCI8"
+result = `cd #{OCI8_BUILD_DIR} && echo "In folder " && ls -alh . && ./configure --prefix=#{OCI8_DIR} 2>&1`
 
-indent "Compiling Ruby 2.1.2"
-result = `cd #{RUBY_BUILD_DIR} && make install 2>&1`
+indent "Compiling Ruby OCI8"
+result = `cd #{OCI8_BUILD_DIR} && make install 2>&1`
 
-result = `ls -alh #{RUBY_DIR}`
+result = `ls -alh #{OCI8_DIR} 2>&1 `
 raise "Install folder is\n #{result}"
 
 S3BUCKET="https://s3.amazonaws.com/chameleon-heroku-assets"
