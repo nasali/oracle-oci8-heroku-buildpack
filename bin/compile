@@ -13,7 +13,7 @@ puts "-----> Found a .oracle.ini"
 
 RUBY_SOURCE_URL = "http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.2.tar.gz"
 
-RUBY_BUILD_DIR="#{ARGV[0]}/vendor/build/ruby-2.1.2"
+RUBY_BUILD_DIR="#{ARGV[0]}/vendor/build/"
 RUBY_DIR="#{ARGV[0]}/vendor/ruby212/"
 
 `mkdir -p #{RUBY_DIR} && mkdir -p #{RUBY_BUILD_DIR}`
@@ -21,15 +21,15 @@ RUBY_DIR="#{ARGV[0]}/vendor/ruby212/"
 indent "Downloading Ruby 2.1.2 source"
 result = `curl #{RUBY_SOURCE_URL} -s -o - | tar -xz -C #{RUBY_BUILD_DIR} -f - `
 indent "Configuring Ruby 2.1.2"
-result = `cd #{RUBY_BUILD_DIR} && ./configure --prefix=#{RUBY_DIR} 2>&1`
-
+result = `cd #{RUBY_BUILD_DIR}/ruby-2.1.2 && ls -alh && ./configure --prefix=#{RUBY_DIR} 2>&1`
+indent "Configuring result was #{result}"
 indent "Compiling Ruby 2.1.2"
-result = `cd #{RUBY_BUILD_DIR} && make install 2>&1`
-
+result = `cd #{RUBY_BUILD_DIR}/ruby-2.1.2/ && ls -alh && make install 2>&1`
+indent "Compiling result was #{result}"
 result = `ls -alh #{RUBY_DIR}`
 indent "Ruby folder is \n #{result}"
 
-raise "Ruby folder is \n #{result}"
+raise "STOP HERE!"
 
 S3BUCKET="https://s3.amazonaws.com/chameleon-heroku-assets"
 OCI8_TGZ="#{S3BUCKET}/ruby-2.0.0-oci8.tar.gz"
