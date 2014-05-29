@@ -29,8 +29,7 @@ indent "Compiling result was #{result}"
 result = `ls -alh #{RUBY_DIR}`
 indent "Ruby folder is \n #{result}"
 
-raise "STOP HERE!"
-
+=begin
 S3BUCKET="https://s3.amazonaws.com/chameleon-heroku-assets"
 OCI8_TGZ="#{S3BUCKET}/ruby-2.0.0-oci8.tar.gz"
 ORACLE_INSTANT_CLIENT_TGZ="#{S3BUCKET}/instantclient_11_2_with_libaio_oci8.tar.gz"
@@ -62,5 +61,5 @@ unless $?.success?
   indent "Failure while downloading Oracle instant client archive: #{$?}"
   exit 1
 end
-
+=end
 indent "Done."
