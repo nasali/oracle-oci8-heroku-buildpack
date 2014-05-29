@@ -20,6 +20,7 @@ RUBY_DIR="#{ARGV[0]}/vendor/ruby212/"
 
 indent "Downloading Ruby 2.1.2 source"
 result = `curl #{RUBY_SOURCE_URL} -s -o - | tar -xz -C #{RUBY_BUILD_DIR} -f - `
+indent `ls -alh #{RUBY_BUILD_DIR}`
 indent "Configuring Ruby 2.1.2"
 result = `cd #{RUBY_BUILD_DIR} && ./configure --prefix=#{RUBY_DIR} 2>&1`
 
