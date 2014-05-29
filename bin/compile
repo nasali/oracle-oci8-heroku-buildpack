@@ -13,7 +13,7 @@ puts "-----> Found a .oracle.ini"
 
 RUBY_SOURCE_URL = "http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.2.tar.gz"
 
-RUBY_BUILD_DIR="#{ARGV[0]}/vendor/ruby212build/"
+RUBY_BUILD_DIR="#{ARGV[0]}/vendor/ruby212build/ruby-2.1.2"
 RUBY_DIR="#{ARGV[0]}/vendor/ruby212/"
 
 `mkdir -p #{RUBY_DIR} && mkdir -p #{RUBY_BUILD_DIR}`
