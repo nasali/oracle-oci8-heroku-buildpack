@@ -11,17 +11,19 @@ end
 
 puts "-----> Found a .oracle.ini"
 
+version = '2.1.2'
+
 S3BUCKET="https://s3.amazonaws.com/chameleon-heroku-assets"
-RUBY_212_TGZ="#{S3BUCKET}/ruby-2.1.2.tar.gz"
+RUBY_212_TGZ="#{S3BUCKET}/ruby-#{version}.tar.gz"
 ORACLE_INSTANT_CLIENT_TGZ="#{S3BUCKET}/instantclient_11_2_with_libaio_oci8.tar.gz"
 OCI8_TGZ="#{S3BUCKET}/ruby-oci8-2.1.7.tar.gz"
 
 BUILD_DIR="#{ARGV[0]}/oracle_oci8"
 OCI8_DIR="#{ARGV[0]}/vendor/oci8"
-version = '2.1.2'
 
-RUBY_212_DIR="#{ARGV[0]}/vendor/" 
 
+RUBY_212_DIR="#{ARGV[0]}/vendor" 
+RUBY_HOME = "#{RUBY_212_DIR}/ruby-#{version}"
 ORACLE_INSTANT_CLIENT_DIR="#{ARGV[0]}/vendor/oracle_instantclient"
 
 indent "Making folders..."
@@ -34,10 +36,10 @@ indent "Downloading and extracting archives from #{S3BUCKET}..."
 
 result = `curl #{RUBY_212_TGZ} -s -o - | tar -xz -C #{RUBY_212_DIR} -f - `
 unless $?.success?
-  indent "Failure while downloading Ruby 2.1.2 archive: #{$?}"
+  indent "Failure while downloading Ruby #{version} archive: #{$?}"
   exit 1
 end
-indent "Folder after downloading Ruby 2.1.2 is now:"
+indent "Folder after downloading Ruby #{version} is now:"
 indent `ls -alh #{RUBY_212_DIR} 2&>1`
 
 
@@ -56,7 +58,7 @@ end
 indent "Folder after downloading OCI8 tgz is now:"
 indent `ls -alh #{RUBY_212_DIR} 2&>1`
 
-result = `cd #{BUILD_DIR} && ls -alh && #{RUBY_212_DIR}/bin/ruby setup.rb config --prefix=#{RUBY_212_DIR} && #{RUBY_212_DIR}/bin/ruby setup.rb install`
+result = `cd #{BUILD_DIR} && ls -alh && #{RUBY_HOME}/bin/ruby setup.rb config --prefix=#{RUBY_HOME} && #{RUBY_HOME}/bin/ruby setup.rb install`
 unless $?.success?
   indent "Failure while compiling OCI8 archive: #{$?}"
   exit 1
