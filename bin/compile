@@ -21,16 +21,16 @@ OCI8_TGZ="#{S3BUCKET}/ruby-oci8-2.1.7.tar.gz"
 BUILD_DIR="#{ARGV[0]}/oracle_oci8"
 OCI8_DIR="#{ARGV[0]}/vendor/oci8"
 
+indent "Making folders..."
 
 VENDOR="#{ARGV[0]}/vendor" 
+`mkdir -p #{VENDOR}`
 RUBY_HOME = "#{VENDOR}/ruby-#{version}"
 ORACLE_INSTANT_CLIENT_DIR="#{ARGV[0]}/vendor/oracle_instantclient"
-
-indent "Making folders..."
-`mkdir -p #{VENDOR}`
+`mkdir -p #{ORACLE_INSTANT_CLIENT_DIR}`
 `mkdir -p #{BUILD_DIR}`
 `mkdir -p #{OCI8_DIR}`
-`mkdir -p #{ORACLE_INSTANT_CLIENT_DIR}`
+
 
 indent "Downloading and extracting archives from #{S3BUCKET}..."
 
@@ -39,8 +39,8 @@ unless $?.success?
   indent "Failure while downloading Ruby #{version} archive: #{$?}"
   exit 1
 end
-indent "About to set path 'export PATH=#{VENDOR}/bin:$PATH'"
-result = `export PATH=#{VENDOR}/bin:$PATH`
+indent "About to set path 'export PATH=vendor/ruby-#{version}/bin:$PATH'"
+result = `export PATH=vendor/ruby-#{version}/bin:$PATH`
 indent `which ruby`
 
 indent "Downloading Oracle Instant Client"
