@@ -25,7 +25,7 @@ RUBY_212_DIR="#{ARGV[0]}/vendor/"
 ORACLE_INSTANT_CLIENT_DIR="#{ARGV[0]}/vendor/oracle_instantclient"
 
 indent "Making folders..."
-`mkdir -p #{OCI8_DIR}`
+`mkdir -p #{OCI8_DIR} #{BUILD_DIR}`
 `mkdir -p #{ORACLE_INSTANT_CLIENT_DIR}`
 
 indent "Downloading and extracting archives from #{S3BUCKET}..."
