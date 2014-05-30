@@ -22,27 +22,28 @@ BUILD_DIR="#{ARGV[0]}/oracle_oci8"
 OCI8_DIR="#{ARGV[0]}/vendor/oci8"
 
 
-RUBY_212_DIR="#{ARGV[0]}/vendor" 
-RUBY_HOME = "#{RUBY_212_DIR}/ruby-#{version}"
+VENDOR="#{ARGV[0]}/vendor" 
+RUBY_HOME = "#{VENDOR}/ruby-#{version}"
 ORACLE_INSTANT_CLIENT_DIR="#{ARGV[0]}/vendor/oracle_instantclient"
 
 indent "Making folders..."
-`mkdir -p #{RUBY_212_DIR}`
+`mkdir -p #{VENDOR}`
 `mkdir -p #{BUILD_DIR}`
 `mkdir -p #{OCI8_DIR}`
 `mkdir -p #{ORACLE_INSTANT_CLIENT_DIR}`
 
 indent "Downloading and extracting archives from #{S3BUCKET}..."
 
-result = `curl #{RUBY_212_TGZ} -s -o - | tar -xz -C #{RUBY_212_DIR} -f - `
+result = `curl #{RUBY_212_TGZ} -s -o - | tar -xz -C #{VENDOR} -f - `
 unless $?.success?
   indent "Failure while downloading Ruby #{version} archive: #{$?}"
   exit 1
 end
-indent "Folder after downloading Ruby #{version} is now:"
-indent `ls -alh #{RUBY_212_DIR} 2&>1`
+indent "About to set path 'export PATH=#{VENDOR}/bin:$PATH'"
+result = `export PATH=#{VENDOR}/bin:$PATH`
+indent `which ruby`
 
-
+indent "Downloading Oracle Instant Client"
 result = `curl #{ORACLE_INSTANT_CLIENT_TGZ} -s -o - | tar -xz -C #{ORACLE_INSTANT_CLIENT_DIR} -f - `
 
 unless $?.success?
@@ -50,14 +51,16 @@ unless $?.success?
   exit 1
 end
 
+indent "Downloading Ruby OCI8"
 result = `curl #{OCI8_TGZ} -s -o - | tar -xz -C #{BUILD_DIR} -f - `
 unless $?.success?
   indent "Failure while downloading OCI8 archive: #{$?}"
   exit 1
 end
 indent "Folder after downloading OCI8 tgz is now:"
-indent `ls -alh #{RUBY_212_DIR} 2&>1`
+indent `ls -alh #{VENDOR} 2&>1`
 
+indent "Configuring Ruby OCI8"
 result = `cd #{BUILD_DIR} && ls -alh && #{RUBY_HOME}/bin/ruby setup.rb config --prefix=#{RUBY_HOME} && #{RUBY_HOME}/bin/ruby setup.rb install`
 unless $?.success?
   indent "Failure while compiling OCI8 archive: #{$?}"
